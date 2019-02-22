@@ -33,19 +33,20 @@ module.exports = function(sequelize, DataTypes) {
 
 module.exports = function(sequelize, DataTypes) {
   var Locations = sequelize.define("Location", {
-    cityName : {
+    locationCity : {
       type : DataTypes.STRING,
       allowNull : false, 
       validate : {
         len: [1] }
       },
-    countryName: {
+    locationCountry: {
       type: DataTypes.STRING,
       allowNull : false,
       validate : {
         len: [1] }
       },
-    countryImage: DataTypes.STRING,  
+    locationImage: DataTypes.STRING,  
+    locationDesc: DataTypes.String,
     nature: DataTypes.INTEGER,
     cost : DataTypes.INTEGER,
     history : DataTypes.INTEGER,
