@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Look For Footprints</title>
+  <!-- Latest compiled and minified CSS & JS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="jumbotron">
+      <h1>Look for Footprints</h1>
+      <h4>Travelled anywhere interesting lately?</h4>
+      <h4>Click the button below to add your footprint and share your experience with others!</h4>
+      <hr>
+      <a href="/add"><button class="btn btn-info btn-lg"><i class="fas fa-shoe-prints" data-fa-transform="rotate-180"></i> Leave Your Footprints</button></a>
+    </div>
+    <div class="row">
+
+      <div class="col-12">
+
+        <div class="card mb-4">
+          <div class="card-header">
+            <h3><strong> Look for Footprints</strong></h3>
+          </div>
+          <div class="card-body">
+            <input type="text" id="fp-search" class="form-control">
+            <br>
+            <div class="text-right">
+              <button type="submit" class="btn btn-primary btn-md" id="search-btn"><span class="fa fa-search"></span> Look for Footprints
+            </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h3><strong>Recent Footprints</strong></h3>
+          </div>
+          <div class="card-body">
+            <h4 id="footprint">Footprint</h4>
+            <div id="details">
+              <h3><strong>City:</strong> <span id="city">Havana, Cuba</span></h3>
+              <h3><strong>Description:</strong> <span id="desc">Lorem ipsum</span></h3>
+              <h3><strong>Photo:</strong> <span id="photo"></span><img src="https://imgur.com/1rfs7cK"></h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    $("#search-btn").on("click", function() {
+      let searchedFP = $("fp-search").val().trim();
+      
+      searchedFP = searchedFP.replace(/\s+/g, "").toLowerCase();
+
+      $.get("/api/destinations/" + searchedCity, function(data) {
+        console.log(data);
+        if (data) {
+          $("#footprint").show();
+          $("#details").text(data.details);
+          $("#city").text(data.city);
+          $("#desc").text(data.desc);
+          $("#photo").text(data.photo);
+        }
+        else {
+          $("#city").text("No footprints here yet!");
+          $("#footprint").hide();
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
